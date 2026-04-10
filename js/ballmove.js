@@ -14,6 +14,7 @@
 // ball.style.left = '${b.x}px';
 // ball.style.top = '${b.y}px';
 // main.append(ball);
+var img;
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -21,8 +22,10 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const BUG_COUNT = 10; // can change..just put 10
+const BUG_COUNT = 5; // can change..just put 10
 const bugs = [];
+
+
 
 // bug... change size and speed and wiggliness here
 for (let i = 0; i < BUG_COUNT; i++) {
@@ -30,12 +33,18 @@ for (let i = 0; i < BUG_COUNT; i++) {
     x: Math.random() * canvas.width, 
     y: Math.random() * canvas.height,
     radius: 30, // bug size
+  
 
     angle: Math.random() * Math.PI * 2,
     speed: 0.8 + Math.random(), // speeds
 
     turnSpeed: 0.5 // how wiggly it is
   });
+
+function setup(){
+  img = loadImage('Chip_popsicle.png')
+}
+
 }
 //---------------------------------------------------------------UPDATE---------------
 function update() { 

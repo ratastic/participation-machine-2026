@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="drawingstyle.css">
+    <title>Drawn Together</title>
+</head>
+<body>
+    <section class="container">
+        <div id="toolbar">
+            <h1>Drawn Together</h1></br>
+            <label for="stroke">Stroke</label>
+            <input id="stroke" name='stroke' type="color"></br>
+            <button id="eraser"class="button-blue">Eraser</button>
+            <button id="brush"class="button-blue">Brush</button><br>
+            <label for="lineWidth">Line Width</label>
+            <input id="lineWidth" name='lineWidth' type="number" value="5"><br>
+            <button id="undo"class="button-blue">Undo</button>
+            <button id="redo"class="button-blue">Redo</button><br>
+            <input type="file" id="upload" accept="image/*">
+            <button id="save"class="button-blue">Save</button>
+            <button id="clear"class="button-red">Clear</button>
+        </div>
+        <div class="drawing-board">
+            <div class="checkered">
+            <canvas id="drawing-board"></canvas>
+            </div>
+        </div>
+    </section>
+    <script src="./drawingindex.js"></script>
+</body>
+</html>

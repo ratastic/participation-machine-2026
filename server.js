@@ -10,7 +10,7 @@ const multer = require("multer");
 const path = require("path"); //works with file + directroy paths
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //telling cloudinary hi this is me pls let me upload
 cloudinary.config({

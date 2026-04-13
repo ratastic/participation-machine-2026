@@ -36,4 +36,4 @@ try {
 
 
 loadImages(); 
-setInterval(loadImages, 3000); 
+setInterval(loadImages, 8000); 

@@ -62,7 +62,7 @@ app.get("/gallery", async (req, res) => {
       type: "upload",
       prefix: "participation-machine/",
       resource_type: "image",
-      max_results: 100
+      max_results: 30
     });
 
     const images = result.resources.map((img) => ({
@@ -84,7 +84,7 @@ app.get("/images", async (req, res) => {
       type: "upload",
       prefix: "participation-machine/",
       resource_type: "image",
-      max_results: 100
+      max_results: 30
     }); //arraw of images from cloudinary 
 
     const images = result.resources.map((img) => ({

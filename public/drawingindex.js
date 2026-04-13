@@ -113,17 +113,59 @@ canvas.addEventListener('mouseup', e => {
     ctx.beginPath();
 });
 
-//Save button
-
+//NEW Save button to upload to cloud instead of to computer
 const saveButton = document.getElementById('save');
+    saveButton.addEventListener('click', async () => {
+    try {
+        canvas.toBlob(async (blob) => {  //canvasinto file instead of downloading it
+            if (!blob) {
+                alert("couldnt turn drawing into image oops");
+                return; }
 
-saveButton.addEventListener('click', () => {
-    const dataURL = canvas.toDataURL('image/png'); // convert canvas to image
-    const link = document.createElement('a');
-    link.href = dataURL;
-    link.download = `drawing-${Date.now()}.png`;
-    link.click();
+            const fileName = `drawing-${Date.now()}.png`;
+                
+            
+            const file = new File([blob], fileName, { 
+                type: "image/png" //make it into a file for multer to get
+            });
+            //upload to cloud
+            const formData = new FormData();
+            formData.append("images", file);
+
+            const response = await fetch("/upload", {
+                method: "POST",
+                body: formData
+            });
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(text || "upload faild");
+            }
+            //download to device
+            const imageUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = imageUrl;
+            link.download = fileName;
+            link.click();
+            URL.revokeObjectURL(imageUrl);
+
+            alert("drawing uploaded and saveeeed yay");
+        }, "image/png");
+    } catch (error) {
+        console.error("saveupload error:", error);
+        alert("upload failedd");
+    }
 });
+
+//OLD SAVE BUTTON CODE 
+// const saveButton = document.getElementById('save');
+
+// saveButton.addEventListener('click', () => {
+//     const dataURL = canvas.toDataURL('image/png'); // convert canvas to image
+//     const link = document.createElement('a');
+//     link.href = dataURL;
+//     link.download = `drawing-${Date.now()}.png`;
+//     link.click();
+// });
 
 //Tool Switch
 

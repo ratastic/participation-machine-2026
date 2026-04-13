@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#showcase {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px;
+  padding: 10px;
+}
+
+.showcase-image {
+  width: 120px;
+  height: auto;
+}

@@ -1,0 +1,36 @@
+{
+  "name": "participation-machine-2026",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ratastic/participation-machine-2026#readme",
+  "bugs": {
+    "url": "https://github.com/ratastic/participation-machine-2026/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ratastic/participation-machine-2026.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1029.0",
+    "aws-sdk": "^2.1693.0",
+    "cloudinary": "^2.9.0",
+    "colors": "^1.4.0",
+    "dotenv": "^17.4.2",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "multer-s3-v2": "^2.2.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

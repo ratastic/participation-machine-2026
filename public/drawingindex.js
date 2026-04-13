@@ -113,25 +113,24 @@ canvas.addEventListener('mouseup', e => {
     ctx.beginPath();
 });
 
-//NEW Save button to upload to cloud instead of to computer
+//NEW Save button to upload to cloud instead of to computer--------
 const saveButton = document.getElementById('save');
     saveButton.addEventListener('click', async () => {
-    try {
-        canvas.toBlob(async (blob) => {  //canvasinto file instead of downloading it
+    try { //async is so the code can wait for it to finsih b4 continuing
+        canvas.toBlob(async (blob) => {  //canvas turns to blob aka file so we can upload to server
             if (!blob) {
                 alert("couldnt turn drawing into image oops");
                 return; }
-
             const fileName = `drawing-${Date.now()}.png`;
-                
             
             const file = new File([blob], fileName, { 
-                type: "image/png" //make it into a file for multer to get
+                type: "image/png" //make it into a png file for multer to grab 
             });
-            //upload to cloud
+            //put into a spical box aka formdata so fetch can grab it
             const formData = new FormData();
             formData.append("images", file);
 
+            //send to backend
             const response = await fetch("/upload", {
                 method: "POST",
                 body: formData

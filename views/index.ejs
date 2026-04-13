@@ -60,7 +60,6 @@ action = server : where data goes
 
 <!---need to be able to procress it thats why its in HTML-->
 <script>
-  <!---array to store the images the user is trying to upload -->
 
 let queuedImagesArray = [],
 savedForm = document.querySelector("#saved-form"),
@@ -70,6 +69,7 @@ queuedDiv = document.querySelector(".queued-div"),
 inputDiv = document.querySelector(".input-div"),
 input = document.querySelector(".input-div input"),
 serverMessage = document.querySelector(".server-message"),
+
 //getting access to front end iimages
 savedImages = JSON.parse('<%-JSON.stringify(images)%>'),
 deleteImages = [];
@@ -86,7 +86,7 @@ function displaySavedImages() {
                </div>`;
   });
   savedDiv.innerHTML = images;
-}
+} // this goes through saved iamges + creates a html for each + shows them in page
 
 async function loadSavedImages() {
   try {
@@ -96,7 +96,7 @@ async function loadSavedImages() {
   } catch (error) {
     console.log("couldnt reload saved images", error);
   }
-}
+}//refreshes the images from server withou relode page ayy
 
 async function deleteSavedImage(index) {
   const deleteSecret = document.getElementById("deleteSecret").value;
@@ -111,13 +111,13 @@ async function deleteSavedImage(index) {
       },
       body: JSON.stringify({
         deleteImages: [publicId],
-        deleteSecret
+        deleteSecret //need to put in secret password or error
       })
     });
 
     if (response.status !== 200) throw Error(response.statusText);
 
-    savedImages.splice(index, 1);
+    savedImages.splice(index, 1); //splice means to remove from array 
     displaySavedImages();
 
     serverMessage.innerHTML = "success delete";
@@ -134,7 +134,6 @@ savedForm.addEventListener("submit", (e) => {
   deletedImagesfromServer()
 })
 
-
 function deletedImagesfromServer() {
   const deleteSecret = document.getElementById("deleteSecret").value;
 
@@ -146,7 +145,7 @@ function deletedImagesfromServer() {
     },
     body: JSON.stringify({
       deleteImages,
-      deleteSecret
+      deleteSecret //need to put in secret password or error
     })
   })
   .then(response => {
@@ -156,33 +155,36 @@ function deletedImagesfromServer() {
     serverMessage.innerHTML = response.statusText;
     serverMessage.style.cssText = "background-color: green; color: white;";
 
-    loadSavedImages(); // refresh after delete
+    loadSavedImages(); //refresh after delete
   })
   .catch(error => {
     serverMessage.innerHTML = error;
     serverMessage.style.cssText = "background-color: red; color: white;";
   });
 }
+
+
+
 //QUEUED TO FRONTEND
 input.addEventListener("change",() => {
 
-  //storing images into this and to gra
+  //storing images into this and to grabs it
   const files = input.files;
 //need to store files into queuedImagesArray to be able to display them in the queued section so we use a for loop
   for(let i = 0; i < files.length; i++)
   {
     queuedImagesArray.push(files[i]); //.push is to add elemets to exsisitng array
-
   }
-
+//if u select image, it store temp b4 upload
   queuedForm.reset();
 
   displayQueuedImages();
 
 })
 
+//this is all like backend stuff from the tutoirtal this part is lwk not nede
 //e = event, u need it to use preventDefault
-inputDiv.addEventListener("drop", (e) => {
+inputDiv.addEventListener("drop", (e) => { //drop is when u drag + drop 
   e.preventDefault();
   const files = e.dataTransfer.files
   for(let i = 0; i < files.length; i++)
@@ -201,11 +203,12 @@ inputDiv.addEventListener("drop", (e) => {
   console.log(files);
 })
 
+//show preview of pic 
 function displayQueuedImages() {
   let images = "";
   queuedImagesArray.forEach((image, index) => {
     images += `<div class="image">
-                 <img src="${URL.createObjectURL(image)}" alt="image">
+                 <img src="${URL.createObjectURL(image)}" alt="image"> //the url.cre.. creats image local b4 send to sever
                  <span onclick="deleteQueuedImage(${index})">&times;</span>
                </div>`;
   });
@@ -236,7 +239,7 @@ function displayQueuedImages() {
     })
 
     fetch("/upload",{
-      method: "POST",
+      method: "POST", //sends it to the backenddd
       body: formData
     })
 

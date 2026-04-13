@@ -1,5 +1,4 @@
-//create server here
-
+//create server 
 
 //bring in packages we installed
 require("dotenv").config() //load secret keys from .env 
@@ -25,10 +24,12 @@ const storage = multer.memoryStorage();
 //multer setup (this is what grabs the uploaded files)
 const upload = multer({
   storage: storage,
+
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb); //only allow images
   }
 }).any();
+
 function checkFileType(file, cb) {
   const fileTypes = /jpeg|jpg|png|gif/;
 
@@ -44,8 +45,6 @@ function checkFileType(file, cb) {
     cb("Images Only!"); 
   }
 }
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

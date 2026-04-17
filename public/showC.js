@@ -26,26 +26,32 @@ try {
       img.style.transform = "scale(1)";
     });
     
-  // img.style.width = Math.random() * 100 + 100 + "px";
-    img.style.position = "absolute";
+    // img.style.width = Math.random() * 100 + 100 + "px";
+    //img.style.position = "absolute";
 
     // random start position
-    img.x = Math.random() * showcase.clientWidth;
-    img.y = Math.random() * showcase.clientHeight;
+    // img.x = Math.random() * showcase.clientWidth;
+    // img.y = Math.random() * showcase.clientHeight;
 
-    // random speed
-    img.dx = (Math.random() - 0.5) * 5;
-    img.dy = (Math.random() - 0.5) * 5;
+    // // random speed
+    // img.dx = (Math.random() - 0.5) * 5;
+    // img.dy = (Math.random() - 0.5) * 5;
 
-    img.style.left = img.x + "px";
-    img.style.top = img.y + "px";
+    // img.style.left = img.x + "px";
+    // img.style.top = img.y + "px";
 
+    img.src = image.url; //this is the actual image from the server   
 
-  img.src = image.url; //this is the actual image from the server   
-
-        showcase.appendChild(img); 
+    showcase.appendChild(img); 
     //.appendchild adds the image to the page 
-    imageElements.push(img)
+
+    imageElements.push({ 
+      drawing: img,
+      x: 500,
+      y: 500,
+      dx: (Math.random() - 0.5) * 5, // random speed
+      dy: (Math.random() - 0.5) * 5
+    });
     //saves image so we can reference it later + allows internactions, .push = adds to array
 
 
@@ -55,30 +61,67 @@ try {
   }
 }
 
-function animate() {
-  const w = showcase.clientWidth;
-  const h = showcase.clientHeight;
+function animate()
+{
+  const screenWidth = window.innerWidth; // screen borders
+  const screenHeight = window.innerHeight;
+  // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth
+  
+  images.forEach((obj) => { // for each individual image + their movement controls
+    const imgWidth = img.offsetWidth;
+    const imgHeight = img.offsetHeight;
+    // https://stackoverflow.com/questions/623172/how-to-get-the-image-size-height-width-using-javascript
 
+    // move; position = position + velocity
+    obj.x += obj.dx; 
+    obj.y += obj.dy;
 
+    // bounce off left/right
+    if (obj.x <= 0 || obj.x + imgWidth >= screenWidth) { 
+      obj.dx *= -1;
+    }
 
-  imageElements.forEach((img) => {
-       if(!img.complete) return; //waits for image to load before animating, prevents glotchses
+    // bounce off top/bottom
+    if (obj.y <= 0 || obj.y + imgHeight >= screenHeight) {
+      obj.dy *= -1;
+    }
 
-    img.x += img.dx;
-    img.y += img.dy;
-
-    const dw = img.offsetWidth;
-    const dh = img.offsetHeight;
-
-    if (img.x <= 0 || img.x + dw >= w) img.dx *= -1;
-    if (img.y <= 0 || img.y + dh >= h) img.dy *= -1;
-
-    img.style.left = img.x + "px";
-    img.style.top = img.y + "px";
+    // apply position change
+    img.style.left = obj.x + "px";
+    img.style.top = obj.y + "px";
   });
 
+  return new Promise(animate => {
   requestAnimationFrame(animate);
+  });
+  // https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
 }
+
+// function animate() {
+//   const w = showcase.clientWidth;
+//   const h = showcase.clientHeight;
+
+
+
+  
+//   imageElements.forEach((img) => {
+//        if(!img.complete) return; //waits for image to load before animating, prevents glotchses
+
+//     img.x += img.dx;
+//     img.y += img.dy;
+
+//     const dw = img.offsetWidth;
+//     const dh = img.offsetHeight;
+
+//     if (img.x <= 0 || img.x + dw >= w) img.dx *= -1;
+//     if (img.y <= 0 || img.y + dh >= h) img.dy *= -1;
+
+//     img.style.left = img.x + "px";
+//     img.style.top = img.y + "px";
+//   });
+
+//   requestAnimationFrame(animate);
+// }
 
 
 loadImages(); 

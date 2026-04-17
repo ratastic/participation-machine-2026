@@ -8,10 +8,11 @@ body {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+
+  animation: showcase-image 2s linear infinite;
 }
 
 .showcase-image {
-  position: absolute;
   max-width: 120px; 
   transition: transform 0.2s ease;
 }

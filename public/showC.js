@@ -26,16 +26,16 @@ try {
       img.style.transform = "scale(1)";
     });
     
-    // img.style.width = Math.random() * 100 + 100 + "px";
-    //img.style.position = "absolute";
+    img.style.width = Math.random() * 100 + 100 + "px";
+    img.style.position = "absolute";
 
     // random start position
     // img.x = Math.random() * showcase.clientWidth;
     // img.y = Math.random() * showcase.clientHeight;
 
-    // // random speed
-    // img.dx = (Math.random() - 0.5) * 5;
-    // img.dy = (Math.random() - 0.5) * 5;
+    // random speed
+    img.dx = (Math.random() - 0.5) * 5;
+    img.dy = (Math.random() - 0.5) * 5;
 
     // img.style.left = img.x + "px";
     // img.style.top = img.y + "px";
@@ -47,29 +47,26 @@ try {
 
     imageElements.push({ 
       drawing: img,
-      x: 500,
-      y: 500,
+      x: Math.random() * showcase.clientWidth, // random start position
+      y: Math.random() * showcase.clientHeight, // random start position
+
+
       dx: (Math.random() - 0.5) * 5, // random speed
       dy: (Math.random() - 0.5) * 5
     });
     //saves image so we can reference it later + allows internactions, .push = adds to array
 
 
-    });
-  } catch (error) {
-    console.log("error loading imagess", error);
-  }
-}
 
-function animate()
-{
+
+
   const screenWidth = window.innerWidth; // screen borders
   const screenHeight = window.innerHeight;
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth
   
-  images.forEach((obj) => { // for each individual image + their movement controls
-    const imgWidth = img.offsetWidth;
-    const imgHeight = img.offsetHeight;
+  imageElements.forEach((obj) => { // for each individual image + their movement controls
+    const imgWidth = obj.drawing.offsetWidth;
+    const imgHeight = obj.drawing.offsetHeight;
     // https://stackoverflow.com/questions/623172/how-to-get-the-image-size-height-width-using-javascript
 
     // move; position = position + velocity
@@ -87,15 +84,76 @@ function animate()
     }
 
     // apply position change
-    img.style.left = obj.x + "px";
-    img.style.top = obj.y + "px";
+    obj.drawing.style.left = obj.x + "px";
+    obj.drawing.style.top = obj.y + "px";
   });
 
-  return new Promise(animate => {
-  requestAnimationFrame(animate);
-  });
+  console.log("animate"); // for testing purposes, shows that the function is running
+  requestAnimationFrame(loadImages);
+
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
+
+
+
+    });
+  } catch (error) {
+    console.log("error loading imagess", error);
+  }
 }
+
+loadImages(); 
+setInterval(loadImages, 2000000); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function animate()
+// {
+//   const screenWidth = window.innerWidth; // screen borders
+//   const screenHeight = window.innerHeight;
+//   // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth
+  
+//   imageElements.forEach((img) => { // for each individual image + their movement controls
+//     const imgWidth = img.drawing.offsetWidth;
+//     const imgHeight = img.drawing.offsetHeight;
+//     // https://stackoverflow.com/questions/623172/how-to-get-the-image-size-height-width-using-javascript
+
+//     // move; position = position + velocity
+//     img.x += img.dx; 
+//     img.y += img.dy;
+
+//     // bounce off left/right
+//     if (img.x <= 0 || img.x + imgWidth >= screenWidth) { 
+//       img.dx *= -1;
+//     }
+
+//     // bounce off top/bottom
+//     if (img.y <= 0 || img.y + imgHeight >= screenHeight) {
+//       img.dy *= -1;
+//     }
+
+//     // apply position change
+//     img.drawing.style.left = img.x + "px";
+//     img.drawing.style.top = img.y + "px";
+//   });
+
+//   console.log("animate"); // for testing purposes, shows that the function is running
+//   return new Promise(animate => {
+//   requestAnimationFrame(animate);
+//   });
+//   // https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
+// }
 
 // function animate() {
 //   const w = showcase.clientWidth;
@@ -124,6 +182,3 @@ function animate()
 // }
 
 
-loadImages(); 
-animate();
-setInterval(loadImages, 2000000); 

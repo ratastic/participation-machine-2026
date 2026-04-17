@@ -27,7 +27,7 @@ let isResizingImage = false;
 
 //Click vs Drag detection
 
-canvas.addEventListener('mousedown', (e) => {
+canvas.addEventListener('pointerdown', (e) => {
     const mouseX = e.clientX - canvasOffsetX;
     const mouseY = e.clientY - canvasOffsetY;
 
@@ -91,6 +91,7 @@ const draw = (e) => {
         return;
     }
 
+   
     ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
 
@@ -99,12 +100,13 @@ const draw = (e) => {
     } else {
         ctx.globalCompositeOperation = 'source-over'; // Erase
     }
-
+    
+    // ctx.lineTo(e.clientX-Reflect.left, e.clientY - Reflect.top);
     ctx.lineTo(e.clientX - canvasOffsetX, e.clientY - canvasOffsetY);
     ctx.stroke();
 }
 
-canvas.addEventListener('mouseup', e => {
+canvas.addEventListener('pointerup', e => {
     
     isPainting = false;
     isDraggingImage = false;
@@ -278,7 +280,8 @@ function drawResizeHandle() {
 }
 
 // Photo Movement
-canvas.addEventListener('mousemove', (e) => {
+canvas.addEventListener('pointermove', (e) => {
+    e.preventDefault ();
     const mouseX = e.clientX - canvasOffsetX;
     const mouseY = e.clientY - canvasOffsetY;
     canvas.style.cursor = 'default';

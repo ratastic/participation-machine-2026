@@ -50,9 +50,9 @@ try {
       x: Math.random() * showcase.clientWidth, // random start position
       y: Math.random() * showcase.clientHeight, // random start position
 
-
-      dx: (Math.random() - 0.5) * 5, // random speed
-      dy: (Math.random() - 0.5) * 5
+//this is 
+      dx: (Math.random() - 0.5) * 1, // random speed
+      dy: (Math.random() - 0.5) * 1
     });
     //saves image so we can reference it later + allows internactions, .push = adds to array
 

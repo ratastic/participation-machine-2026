@@ -1,5 +1,6 @@
-let imageElements = []; // ALL image elements
+let imageElements = []; // Arrray of ALL image elements
 const showcase = document.getElementById("showcase");
+let cachedImages = null; 
 
 
 async function loadImages() { // this function gets images from the backend and displays them
@@ -12,9 +13,12 @@ try {
 
     images.forEach((image) => {
     const img = document.createElement("img"); //gives each img a  <img> tag
-    img.src = image.url; //this is the actual image from the server   
+    
   
-    // elvas silly test interactions
+    img.classList.add("showcase-image"); 
+        // for css to b able to refrence 
+
+        // elvas silly test interactions
     img.addEventListener("mouseenter", () => {
       img.style.transform = "scale(1.2)";
     });
@@ -22,9 +26,9 @@ try {
       img.style.transform = "scale(1)";
     });
     
-    // for css (why isn't this put in a css file instead? /genq)
-    // img.style.width = Math.random() * 100 + 100 + "px";
+  // img.style.width = Math.random() * 100 + 100 + "px";
     img.style.position = "absolute";
+
     // random start position
     img.x = Math.random() * showcase.clientWidth;
     img.y = Math.random() * showcase.clientHeight;
@@ -36,15 +40,16 @@ try {
     img.style.left = img.x + "px";
     img.style.top = img.y + "px";
 
-    img.classList.add("showcase-image"); 
-   
-    showcase.appendChild(img); 
-    //.appendchild adds the image to the page 
 
+  img.src = image.url; //this is the actual image from the server   
+
+        showcase.appendChild(img); 
+    //.appendchild adds the image to the page 
     imageElements.push(img)
+    //saves image so we can reference it later + allows internactions, .push = adds to array
+
 
     });
-      //saves image so we can reference it later + allows internactions, .push = adds to array
   } catch (error) {
     console.log("error loading imagess", error);
   }
@@ -54,23 +59,28 @@ function animate() {
   const w = showcase.clientWidth;
   const h = showcase.clientHeight;
 
-  imageElements.forEach((drawing) => {
-    drawing.x += drawing.dx;
-    drawing.y += drawing.dy;
 
-    const dw = drawing.offsetWidth;
-    const dh = drawing.offsetHeight;
 
-    if (drawing.x <= 0 || drawing.x + dw >= w) drawing.dx *= -1;
-    if (drawing.y <= 0 || drawing.y + dh >= h) drawing.dy *= -1;
+  imageElements.forEach((img) => {
+       if(!img.complete) return; //waits for image to load before animating, prevents glotchses
 
-    drawing.style.left = drawing.x + "px";
-    drawing.style.top = drawing.y + "px";
+    img.x += img.dx;
+    img.y += img.dy;
+
+    const dw = img.offsetWidth;
+    const dh = img.offsetHeight;
+
+    if (img.x <= 0 || img.x + dw >= w) img.dx *= -1;
+    if (img.y <= 0 || img.y + dh >= h) img.dy *= -1;
+
+    img.style.left = img.x + "px";
+    img.style.top = img.y + "px";
   });
 
   requestAnimationFrame(animate);
 }
 
-animate();
+
 loadImages(); 
-setInterval(loadImages, 8000); 
+animate();
+setInterval(loadImages, 2000000); 

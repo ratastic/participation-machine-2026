@@ -15,4 +15,18 @@ body {
 .showcase-image {
   max-width: 120px; 
   transition: transform 0.2s ease;
+
+  animation: squish-loop 2s infinite alternate ease-in-out;
+}
+
+@keyframes squish-loop {
+  0% {
+    transform: scale(1, 1); /* Normal */
+  }
+  50% {
+    transform: scale(1.2, 0.8); /* Squish down, stretch wide */
+  }
+  100% {
+    transform: scale(0.8, 1.2); /* Stretch tall, squish thin */
+  }
 }

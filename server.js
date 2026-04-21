@@ -31,7 +31,6 @@ async function getImagesFromCloudinary(forceRefresh = false) {
 
   const result = await cloudinary.api.resources({
     type: "upload",
-    prefix: "participation-machine/",
     resource_type: "image",
     max_results: 30
   });

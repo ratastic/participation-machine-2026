@@ -111,6 +111,7 @@ function update() {
   });
 
   handleCollisions(); // <-- plugged in from collision code
+  // kill();
 
   console.log("animate"); // for testing purposes, shows that the function is running
 }
@@ -168,6 +169,20 @@ function loop() {
   render();
   requestAnimationFrame(loop);
 }
+
+// function kill(){
+//   setInterval(() => {
+//   if(imageElements.length === 0) return; // if no images, skip
+//   console.log("PENISSSSS");
+//   const first = imageElements.shift(); // removes the first image from the array (the oldest one)
+//   first.img.remove(); // removes the oldest image from the screen
+//   }, 5000); // every 5 seconds, removes the oldest image on the screen to prevent overcrowding. Adjust as needed.
+// }
+
+
+
+
+
 
 /*let imageElements = []; // Arrray of ALL image elements
 const showcase = document.getElementById("showcase");

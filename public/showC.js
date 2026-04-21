@@ -3,7 +3,6 @@ const showcase = document.getElementById("showcase");
 let cachedImages = null; 
 
 
-
 async function loadImages() { // this function gets images from the backend and displays them
     try {
       const response = await fetch("/images"); //grabs all img from back
@@ -14,6 +13,17 @@ async function loadImages() { // this function gets images from the backend and 
         imageElements = []; //reses array has current images
         */ 
        //instead using alreadyExists
+
+       const serverUrls = images.map((img) => img.url);
+        //remove any images that are no longer on the server
+         imageElements = imageElements.filter((obj) => {
+          const stillExists = serverUrls.includes(obj.el.src);
+          if (!stillExists) {
+            obj.el.remove(); //this deletes the image from te screen
+          }
+
+          return stillExists;
+        });
 
       images.forEach((image) => {
         // skip if this image is already in array
@@ -69,7 +79,6 @@ async function loadImages() { // this function gets images from the backend and 
   // Call once to load initial images + start loop
   loadImages().then(() => loop());
   //re-check for new images every 10 seconds
-  setInterval(loadImages, 10000); 
 
 
 
@@ -159,8 +168,6 @@ function loop() {
   render();
   requestAnimationFrame(loop);
 }
-
-loadImages();
 
 /*let imageElements = []; // Arrray of ALL image elements
 const showcase = document.getElementById("showcase");

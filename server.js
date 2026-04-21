@@ -1,7 +1,7 @@
 //create server 
 
 //bring in packages we installed
-require("dotenv").config() //load secret keys from .env 
+require("dotenv").config(); //load secret keys from .env 
 const cloudinary = require("cloudinary").v2;
 
 const express = require("express");
@@ -11,6 +11,10 @@ const path = require("path"); //works with file + directroy paths
 const app = express();
 const port = process.env.PORT || 3000;
 
+let cachedImages = [];
+let lastFetchTime = 0;
+const CACHE_DURATION = 60 * 1000;
+
 //telling cloudinary hi this is me pls let me upload
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, //user
@@ -18,13 +22,35 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET //password
 });
 
+async function getImagesFromCloudinary(forceRefresh = false) {
+  const now = Date.now();
+
+  if (!forceRefresh && cachedImages.length > 0 && now - lastFetchTime < CACHE_DURATION) {
+    return cachedImages;
+  }
+
+  const result = await cloudinary.api.resources({
+    type: "upload",
+    prefix: "participation-machine/",
+    resource_type: "image",
+    max_results: 30
+  });
+
+  cachedImages = result.resources.map((img) => ({
+    url: img.secure_url,
+    public_id: img.public_id
+  }));
+
+  lastFetchTime = now;
+  return cachedImages;
+}
+
 //store images TEMP in RAM 
 const storage = multer.memoryStorage(); 
 
 //multer setup (this is what grabs the uploaded files)
 const upload = multer({
   storage: storage,
-
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb); //only allow images
   }
@@ -35,7 +61,7 @@ function checkFileType(file, cb) {
 
   const extname = fileTypes.test(
     path.extname(file.originalname).toLowerCase()
-  ); //checks file name likejpg
+  ); //checks file name like jpg
 
   const mimetype = fileTypes.test(file.mimetype); //checks actual file type
 
@@ -58,18 +84,7 @@ app.get("/", (req, res) => {
 
 app.get("/gallery", async (req, res) => {
   try {
-    const result = await cloudinary.api.resources({
-      type: "upload",
-      prefix: "participation-machine/",
-      resource_type: "image",
-      max_results: 30
-    });
-
-    const images = result.resources.map((img) => ({
-      url: img.secure_url,
-      public_id: img.public_id
-    }));
-
+    const images = await getImagesFromCloudinary(false);
     res.render("index", { images });
   } catch (err) {
     console.log("CLOUDINARY LIST ERROR:", err);
@@ -77,25 +92,14 @@ app.get("/gallery", async (req, res) => {
   }
 });
 
-//BackEND gettingimag from cloud 
+//BackEND getting imag from cloud 
 app.get("/images", async (req, res) => {
   try {
-    const result = await cloudinary.api.resources({
-      type: "upload",
-      prefix: "participation-machine/",
-      resource_type: "image",
-      max_results: 30
-    }); //arraw of images from cloudinary 
-
-    const images = result.resources.map((img) => ({
-      url: img.secure_url,
-      public_id: img.public_id
-    })); //simple array of image URLs and IDs
-
-   res.json(images);// place on the screen aka front end
+    const images = await getImagesFromCloudinary(false);
+    res.json(images);
   } catch (err) {
     console.log("IMAGE FETCH ERROR:", err);
-    res.status(500).json([]); 
+    res.status(500).json([]);
   }
 });
 
@@ -114,21 +118,30 @@ app.post("/upload", (req, res) => {
     if (!req.files || req.files.length === 0) {
       return res.status(400).send("uh no files"); 
     }
+
     try {
       for (const file of req.files) {
         const result = await new Promise((resolve, reject) => {
-
-  const stream = cloudinary.uploader.upload_stream(
-  { resource_type: "image", folder: "participation-machine" }, //tells cloudinary its a pic
+          const stream = cloudinary.uploader.upload_stream(
+            { resource_type: "image", folder: "participation-machine" },
             (error, result) => {
-              if (error) reject(error); 
-              else resolve(result); 
+              if (error) reject(error);
+              else resolve(result);
             }
           );
-          stream.end(file.buffer); //send file from RAM to cloudinary
+          stream.end(file.buffer);
         });
+
         console.log("uploadd:", result.secure_url);
+
+        // add new upload to cache
+        cachedImages.unshift({
+          url: result.secure_url,
+          public_id: result.public_id
+        });
       }
+
+      lastFetchTime = Date.now();
       res.status(200).send("upload successful");
     } catch (err) {
       console.log("error:", err);
@@ -152,8 +165,12 @@ app.put("/delete", async (req, res) => {
     for (const publicId of deleteImages) {
       const result = await cloudinary.uploader.destroy(publicId);
       console.log("DELETE RESULT:", publicId, result);
+
+      // remove from cache too
+      cachedImages = cachedImages.filter((img) => img.public_id !== publicId);
     }
 
+    lastFetchTime = Date.now();
     res.status(200).send("success delete");
   } catch (err) {
     console.log("DELETE ERROR:", err);

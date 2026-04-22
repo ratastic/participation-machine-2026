@@ -1,10 +1,11 @@
+require("dotenv").config(); //load secret keys from .env 
+
 //create server 
 console.log("cloud name:", process.env.CLOUDINARY_CLOUD_NAME);
 console.log("has api key:", !!process.env.CLOUDINARY_API_KEY);
 console.log("has api secret:", !!process.env.CLOUDINARY_API_SECRET);
 
 //bring in packages we installed
-require("dotenv").config(); //load secret keys from .env 
 const cloudinary = require("cloudinary").v2;
 
 const express = require("express");

@@ -1,5 +1,10 @@
 require("dotenv").config(); //load secret keys from .env 
 
+console.log("RUNNING THIS SERVER FILE");
+console.log("__dirname:", __dirname);
+console.log("cwd:", process.cwd());
+console.log("secret exists:", !!process.env.CLOUDINARY_API_SECRET);
+
 //create server 
 console.log("cloud name:", process.env.CLOUDINARY_CLOUD_NAME);
 console.log("has api key:", !!process.env.CLOUDINARY_API_KEY);
@@ -37,6 +42,7 @@ async function getImagesFromCloudinary(forceRefresh = false) {
     const result = await cloudinary.api.resources({
       type: "upload",
       resource_type: "image",
+      prefix: "participation-machine/",
       max_results: 30
     });
 
@@ -48,7 +54,7 @@ async function getImagesFromCloudinary(forceRefresh = false) {
     lastFetchTime = now;
     return cachedImages;
   } catch (err) {
-       console.log("CLOUDINARY RESOURCES ERROR MESSAGE:", err.message);
+    console.log("CLOUDINARY RESOURCES ERROR MESSAGE:", err.message);
     console.log("CLOUDINARY RESOURCES ERROR HTTP:", err.http_code);
     console.log("CLOUDINARY RESOURCES ERROR FULL:", err);
     throw err;

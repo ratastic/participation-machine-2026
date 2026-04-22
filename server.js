@@ -1,4 +1,7 @@
 //create server 
+console.log("cloud name:", process.env.CLOUDINARY_CLOUD_NAME);
+console.log("has api key:", !!process.env.CLOUDINARY_API_KEY);
+console.log("has api secret:", !!process.env.CLOUDINARY_API_SECRET);
 
 //bring in packages we installed
 require("dotenv").config(); //load secret keys from .env 
@@ -29,19 +32,26 @@ async function getImagesFromCloudinary(forceRefresh = false) {
     return cachedImages;
   }
 
-  const result = await cloudinary.api.resources({
-    type: "upload",
-    resource_type: "image",
-    max_results: 30
-  });
+  try {
+    const result = await cloudinary.api.resources({
+      type: "upload",
+      resource_type: "image",
+      max_results: 30
+    });
 
-  cachedImages = result.resources.map((img) => ({
-    url: img.secure_url,
-    public_id: img.public_id
-  }));
+    cachedImages = result.resources.map((img) => ({
+      url: img.secure_url,
+      public_id: img.public_id
+    }));
 
-  lastFetchTime = now;
-  return cachedImages;
+    lastFetchTime = now;
+    return cachedImages;
+  } catch (err) {
+       console.log("CLOUDINARY RESOURCES ERROR MESSAGE:", err.message);
+    console.log("CLOUDINARY RESOURCES ERROR HTTP:", err.http_code);
+    console.log("CLOUDINARY RESOURCES ERROR FULL:", err);
+    throw err;
+  }
 }
 
 //store images TEMP in RAM 
@@ -97,8 +107,9 @@ app.get("/images", async (req, res) => {
     const images = await getImagesFromCloudinary(false);
     res.json(images);
   } catch (err) {
-    console.log("IMAGE FETCH ERROR:", err);
-    res.status(500).json([]);
+    console.log("IMAGE FETCH ERROR MESSAGE:", err.message);
+    console.log("IMAGE FETCH ERROR FULL:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 

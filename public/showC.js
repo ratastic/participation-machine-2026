@@ -1,4 +1,7 @@
 let imageElements = [];
+//let imageElement2 = imageElements[imageElements.length - 1];
+const reversed = imageElements.reverse(); // creates a reversed copy of the array
+console.log("reversed array:", reversed); // for testing purposes, shows the reversed array in the console
 const showcase = document.getElementById("showcase");
 let cachedImages = null; 
 
@@ -14,16 +17,16 @@ async function loadImages() { // this function gets images from the backend and 
         */ 
        //instead using alreadyExists
 
-       const serverUrls = images.map((img) => img.url);
-        //remove any images that are no longer on the server
-         imageElements = imageElements.filter((obj) => {
-          const stillExists = serverUrls.includes(obj.el.src);
-          if (!stillExists) {
-            obj.el.remove(); //this deletes the image from te screen
-          }
+      //  const serverUrls = images.map((img) => img.url);
+      //   //remove any images that are no longer on the server
+      //    imageElements = imageElements.filter((obj) => {
+      //     const stillExists = serverUrls.includes(obj.el.src);
+      //     if (!stillExists) {
+      //       obj.el.remove(); //this deletes the image from te screen
+      //     }
 
-          return stillExists;
-        });
+      //     return stillExists;
+      //   });
 
       images.forEach((image) => {
         // skip if this image is already in array
@@ -54,7 +57,7 @@ async function loadImages() { // this function gets images from the backend and 
         showcase.appendChild(img); 
         //.appendchild adds the image to the page 
   
-        imageElements.push({
+        imageElements.push({//add new images to array
           el: img,
           x: Math.random() * showcase.clientWidth, //random start position
           y: Math.random() * showcase.clientHeight,
@@ -179,10 +182,16 @@ function loop() {
 //   }, 5000); // every 5 seconds, removes the oldest image on the screen to prevent overcrowding. Adjust as needed.
 // }
 
-
-
-
-
+const intervalId = setInterval(() => {
+  if (imageElements.length > 0){
+    const removedItem = imageElements.pop(); // removes the first image from the array (the oldest one)
+    console.log("removed image:", removedItem, "remaining images:", imageElements);
+    removedItem.el.remove();
+  } else {
+    console.log("no images to remove");
+    clearInterval(intervalId); // stop the interval if there are no images left
+  }
+}, 5000);
 
 /*let imageElements = []; // Arrray of ALL image elements
 const showcase = document.getElementById("showcase");

@@ -14,7 +14,7 @@ let isPainting = false;
 let lineWidth = 5;
 let startX;
 let startY;
-let tool = 'brush';
+let tool = 'brushSmall';
 
 //Undo and Redo
 let undoStack = [];
@@ -90,7 +90,6 @@ const draw = (e) => {
     if(!isPainting) {
         return;
     }
-
    
     ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
@@ -171,15 +170,32 @@ const saveButton = document.getElementById('save');
 //Tool Switch
 
 const eraserButton = document.getElementById('eraser');
-const brushButton = document.getElementById('brush');
+const brushSmallButton = document.getElementById('brushSmall');
+const brushMedButton = document.getElementById('brushMed');
+const brushBigButton = document.getElementById('brushBig');
+
 
 eraserButton.addEventListener('click', () => {
     tool = 'eraser';
+    lineWidth = 15;
     canvas.style.cursor = 'crosshair';
 });
 
-brushButton.addEventListener('click', () => {
-    tool = 'brush';
+brushSmallButton.addEventListener('click', () => {
+    tool = 'brushSmall';
+    lineWidth = 10;
+    canvas.style.cursor = 'default';
+});
+
+brushMedButton.addEventListener('click', () => {
+    tool = 'brushMed';
+    lineWidth = 20;
+    canvas.style.cursor = 'default';
+});
+
+brushBigButton.addEventListener('click', () => {
+    tool = 'brushBig';
+    lineWidth = 30;
     canvas.style.cursor = 'default';
 });
 

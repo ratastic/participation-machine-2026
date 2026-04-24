@@ -1,23 +1,38 @@
 body {
   margin: 0;
   font-family: sans-serif;
+  background-color: rgba(250, 246, 231, 0.844);
+  overflow: hidden;
+
+
 }
 
 #showcase {
-  position: relative;
+  position: relative ;
+
+     background-image: url(/images/BackgrounfArt_PC1.png), url(/images/BackgrounfArt_PC2.png);
+    background-position: bottom, top;
+  background-repeat: no-repeat, no-repeat;
+    background-size: 100% auto;
+
+
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  height:100vh;
+
+
 
   animation: showcase-image 2s linear infinite;
 }
 
 .showcase-image {
-  max-width: 120px; 
+  max-width: 100%; 
   transition: transform 0.2s ease;
 
   animation: squish-loop 2s infinite alternate ease-in-out;
 }
+
+
+
 
 @keyframes squish-loop {
   0% {
@@ -30,3 +45,4 @@ body {
     transform: scale(0.8, 1.2); /* Stretch tall, squish thin */
   }
 }
+

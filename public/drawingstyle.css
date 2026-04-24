@@ -55,8 +55,10 @@ h1 {
 }
 
 .checkered {
-  --size: 20px;
-  --color-1: #ffffff;
+
+    background-image: url(images/BackgrounfArt_PC1.png);
+
+  /* --size: 20px;
   --color-2: #cccccc;
   
   background-image: conic-gradient(
@@ -65,5 +67,5 @@ h1 {
     var(--color-1) 0 75%, 
     var(--color-2) 0
   );
-  background-size: var(--size) var(--size);
+  background-size: var(--size) var(--size); */
 }

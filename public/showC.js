@@ -5,6 +5,7 @@ console.log("reversed array:", reversed); // for testing purposes, shows the rev
 const showcase = document.getElementById("showcase");
 let cachedImages = null; 
 
+myEmotions = ['angry.png','derp.png','sad.jpg','confused.jpg','fart.jpg'];
 
 async function loadImages() { // this function gets images from the backend and displays them
     try {
@@ -135,6 +136,8 @@ function handleCollisions() {
           a.y < b.y + b.height && //top check A
           a.y + a.height > b.y // bottom A
       ) {
+
+        
         // bounce by swapping velocity
         const tempDx = a.dx;
         const tempDy = a.dy;
@@ -153,10 +156,46 @@ function handleCollisions() {
   
           a.y += overlapY > 0 ? push: -push;
           b.y -= overlapY > 0 ? push: -push;
+          
+        //createBox();
+        const index = Math.floor(Math.random() * myEmotions.length);
+  const selected_image = myEmotions[index];
+
+   // create image element
+  const img = document.createElement('img');
+  img.src = `images/${selected_image}`;
+  
+  // var box = document.createElement('div');
+  
+  // box.className = 'box';
+  // box.style.position = 'absolute';
+
+  //tracking where 
+  img.style.zIndex = '-1';
+  img.style.position = 'absolute'
+  img.style.left = a.y + 'px';
+  img.style.top = a.x + 'px';
+  img.style.width = '50px';//
+
+  document.body.appendChild(img);
+  console.log('click')
+
       }
     }
   }
 }
+myEmotions = ['angry.png','derp.png','sad.jpg','confused.jpg','fart.jpg'];
+
+// window.onclick = e => {
+//   h = document.createElement('div')
+//   h.getContext = 'H'
+//   h.style.position = 'absolute'
+//   h.style.translate = '${e.clientX}px ${e.clientY}px'
+//   document.body.appendChild(h)
+  
+// 
+
+// -------------------------------reaction function---------------
 
 // ---------------------render----------------
 function render() {

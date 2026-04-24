@@ -54,18 +54,17 @@ h1 {
     background-color: #c01515;
 }
 
-.checkered {
-
+.background1 {
+    background-image: url(images/BackgrounfArt_PC2.png);
+    background-color: antiquewhite;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+}
+.background2 {
     background-image: url(images/BackgrounfArt_PC1.png);
-
-  /* --size: 20px;
-  --color-2: #cccccc;
-  
-  background-image: conic-gradient(
-    var(--color-1) 0 25%, 
-    var(--color-2) 0 50%, 
-    var(--color-1) 0 75%, 
-    var(--color-2) 0
-  );
-  background-size: var(--size) var(--size); */
+    background-color: antiquewhite;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
 }

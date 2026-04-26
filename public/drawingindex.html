@@ -7,26 +7,26 @@
     <title>Drawn Together</title>
 </head>
 <body>
+    <div class="background1">
+    <div class="background2">
+    <button id="eraser"class="button-tool"></button>
+    <button id="brushSmall"class="button-tool"></button>
+    <button id="brushMed"class="button-tool"></button>
+    <button id="brushBig"class="button-tool"></button><
     <section class="container">
         <div id="toolbar">
             <h1>Drawn Together</h1></br>
             <label for="stroke">Stroke</label>
             <input id="stroke" name='stroke' type="color"></br>
-            <button id="eraser"class="button-blue">Eraser</button>
-            <button id="brushSmall"class="button-blue">Small Brush</button>
-            <button id="brushMed"class="button-blue">Medium Brush</button>
-            <button id="brushBig"class="button-blue">Big Brush</button><br>
-            <label for="lineWidth">Line Width</label>
-            <input id="lineWidth" name='lineWidth' type="number" value="5"><br>
+            <!-- <label for="lineWidth">Line Width</label> -->
+            <!-- <input id="lineWidth" name='lineWidth' type="number" value="5"><br> -->
             <button id="undo"class="button-blue">Undo</button>
             <button id="redo"class="button-blue">Redo</button><br>
             <input type="file" id="upload" accept="image/*">
-            <button id="save"class="button-blue">Save</button>
             <button id="clear"class="button-red">Clear</button>
+            <button id="save"class="button-blue">Save</button>
         </div>
-            <div class="drawing-board">
-                <div class="background1">
-                <div class="background2">
+             <div class="drawing-board">
                     <canvas id="drawing-board">
                     </canvas>
                 </div></div>

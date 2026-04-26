@@ -10,10 +10,10 @@ body {
 #showcase {
   position: relative ;
 
-     background-image: url(/images/BackgrounfArt_PC1.png), url(/images/BackgrounfArt_PC2.png);
+    background-image: url(/images/computer-bottomLeft-border-01.svg), url(/images/computer-topRight-border-01.svg);
     background-position: bottom, top;
-  background-repeat: no-repeat, no-repeat;
-    background-size: 100% auto;
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover;
 
 
   width: 100%;

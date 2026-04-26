@@ -11,7 +11,7 @@ canvas.width = window.innerWidth - canvasOffsetX;
 canvas.height = window.innerHeight - canvasOffsetY;
 
 let isPainting = false;
-let lineWidth = 5;
+let lineWidth =10;
 let startX;
 let startY;
 let tool = 'brushSmall';

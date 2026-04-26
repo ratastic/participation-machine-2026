@@ -1,5 +1,8 @@
 const canvas = document.getElementById('drawing-board');
 const toolbar = document.getElementById('toolbar');
+const helpBtn = document.getElementById('helpBtn');
+const helpPanel = document.getElementById('helpPanel');
+const closeHelp = document.getElementById('closeHelp');
 const ctx = canvas.getContext('2d');
 
 const uploadInput = document.getElementById('upload');
@@ -337,3 +340,14 @@ canvas.addEventListener('pointermove', (e) => {
 
     if (isPainting) {draw(e);}
 });
+
+//HELP/GUIDE PANNEL
+
+function openGuide() {
+  var x = document.getElementById("myDIV");
+  if (x.style.visibility === "hidden") {
+    x.style.visibility = "visible";
+  } else {
+    x.style.visibility = "hidden";
+  }
+}

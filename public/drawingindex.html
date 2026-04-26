@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/public/drawingstyle.css">
-    <title>Drawn Together</title>
+    <title>Draw To Life Drawing Screen</title>
 </head>
 <body>
     <div class="background1">
@@ -14,30 +14,30 @@
     <button id="brushSmall"class="button-tool"></button>
     <button id="brushMed"class="button-tool"></button>
     <button id="brushBig"class="button-tool"></button>
-    <section class="container">
-        <div id="toolbar">
-            <label for="stroke"><img src="images/toolButtons/ColorPicker.svg" alt="HTML5 Icon" style="width:128px;height:128px;"></label>
-            <input id="stroke" name='stroke' type="color">
+    <div id="toolbar">
+            <button id="clear"class="button-main"></button>
             <!-- <label for="lineWidth">Line Width</label> -->
             <!-- <input id="lineWidth" name='lineWidth' type="number" value="5"><br> -->
-            <button id="undo"class="button-blue">Undo</button>
-            <button id="redo"class="button-blue">Redo</button>
-            <button onclick="openGuide()"><img src="images/toolButtons/HowToButton.svg" alt="HTML5 Icon" style="width:128px;height:128px;"></button>
-            <input type="file" id="upload" accept="image/*">
-            <button id="clear"class="button-main"></button>
-            <button id="save"class="button-main"></button>
-                                    <div id="myDIV">
+            <button id="undo"class="button-main"></button>
+            <button id="redo"class="button-main"></button>
+            <div id="label-container">
+                <label for="stroke" class="color-label"><img src="images/toolButtons/ColorPicker.svg" alt="HTML5 Icon" style="width:150px;height:150px;"></label>
+                <input id="stroke" name='stroke' type="color">
+            </div>
+            <button id= "guideButton" onclick="openGuide()"></button>
+            <div id="label-container">
+                <label for="upload" class="imageUpload"><img src="images/toolButtons/UploadImageButton.svg" alt="HTML5 Icon" style="width:200px;height:150px;"></label>
+                <input type="file" id="upload" accept="image/*">
+            </div>
+            <!-- <div id="myDIV">
                 <img src="images/toolButtons/Guide.png" alt="HTML5 Icon" style="width:400px;height:500px; overflow:hidden;">
-                </div>
-        </div>
-             <div class="drawing-board">
-                    <canvas id="drawing-board">
-                    </canvas>
-                </div>
-            </div>
-            </div>
-        </div>
-    </section>
+            </div> -->
+             <button id="save"class="button-main"></button>
+    </div>
+    <div class="drawing-board">
+        <canvas id="drawing-board">
+        </canvas>
+    </div>
 </div>
 <script src="/public/drawingindex.js"></script>
 </body>

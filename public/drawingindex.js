@@ -1,8 +1,5 @@
 const canvas = document.getElementById('drawing-board');
 const toolbar = document.getElementById('toolbar');
-const helpBtn = document.getElementById('helpBtn');
-const helpPanel = document.getElementById('helpPanel');
-const closeHelp = document.getElementById('closeHelp');
 const ctx = canvas.getContext('2d');
 
 const uploadInput = document.getElementById('upload');
@@ -351,3 +348,12 @@ function openGuide() {
     x.style.visibility = "hidden";
   }
 }
+
+// function openGuide() {
+//   var x = document.getElementById("myDIV");
+//   if (x.style.display === "none") {
+//     x.style.display = "block";
+//   } else {
+//     x.style.display = "none";
+//   }
+// }

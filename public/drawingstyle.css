@@ -14,37 +14,6 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
-/* .container {
-    height: 100%;
-    display: flex;
-} 
-
-#toolbar {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    width: 200px;
-    background-color: #202020;
-} */
-
-/* #toolbar * {
-    margin-bottom: 8px;
-}
-
-#toolbar label {
-    font-size: 16px;
-}
-
-#toolbar input {
-    width: 100%;
-} */
-
-/* #toolbar button {
-    border: none;
-    border-radius: 4px;
-    color:white;
-} */
-
 .button-tool{ /* pens and eraser*/
     background-color: #00000000;
     border: none;
@@ -97,18 +66,10 @@ h1 {
     top: 400px;
 }
 
-/* #save{
-    background-image: url(images/toolButtons/done-button.png);
-    width:500px;
-    height:500px;
-    position: absolute;
-    left: 60px; 
-    top: 300px;
-} */
-
-.button-main{ /* pens and eraser*/
+.button-main{ 
     background-color: #00000000;
     border: none;
+    padding: 5%;
 }
 
 .button-main:hover{
@@ -120,24 +81,96 @@ h1 {
     background-repeat: no-repeat;
     height: 85px;
     width: 150px;
+    position: absolute;
+    margin-left: 2%; 
+    left: 2%; 
+    top: 10%;
+}
+
+#undo{
+    background-image: url(images/toolButtons/UndoButton.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    height: 10%;
+    width: 10%;
+    left: 20%; 
+    top: 10%;
+}
+
+#redo{
+    background-image: url(images/toolButtons/RedoButton.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    height: 10%;
+    width: 10%;
+    left: 30%; 
+    top: 10%;
 }
 
 #save{
     background-image: url(images/toolButtons/done-button.png);
     background-repeat: no-repeat;
     background-size: contain;
-    height: 200px;
-    width: 200px;
+    height: 20%;
+    width: 20%;
+    position: absolute;
+    right: 5%; 
+    bottom: 20%;
+}
+
+.label-container{
+    position: relative;
 }
 
 #stroke{
     height: 40px;
     width: 40px;
     border-radius: 5px;
+    position: absolute;
+    right: 30%; 
+    top: 10%;
 }
 
-.button-blue{
-    background-color: #1565c0;
+.color-label{
+    position: absolute;
+    right: 30%; 
+    top: 10%;
+    transform: translate(50px, -30px);
+}
+
+input[type="file"]{
+    display:none
+}
+
+label{
+  margin-right: -50px
+}
+
+#upload{
+    position: absolute;
+}
+
+#guideButton{
+    background-image: url(images/toolButtons/HowToButton.svg);
+    background-color: rgba(0, 0, 0, 0);
+    border:rgba(0, 0, 0, 0);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 12%;
+    width: 14%;
+    position: absolute;
+    right: 50%; 
+    top: 10%;
+    transform: translate(50px, -30px);
+}
+
+.imageUpload{
+    position: absolute;
+    right: 10%; 
+    top: 10%;
+    transform: translate(50px, -20px);
 }
 
 .background1 {
@@ -155,7 +188,7 @@ h1 {
     background-size: cover;
 }
 .background3 {
-    background-image: url(images/toolButtons/Title_MAIN.svg);
+    background-image: url(images/Title_MAIN.svg);
     background-repeat: no-repeat;
     background-position: 50% 0%;
     background-size: 50%;

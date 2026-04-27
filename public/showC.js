@@ -9,7 +9,7 @@ myEmotions = ['splat1.png','splat2.png','splat3.png','splat4.png','splat5.png','
 
 async function loadImages() { // this function gets images from the backend and displays them
     try {
-      const response = await fetch("/images"); //grabs all img from back
+const response = await fetch("/images?t=" + Date.now());
       const images = await response.json(); //converts 2 array
   
 
@@ -83,7 +83,7 @@ async function loadImages() { // this function gets images from the backend and 
   // Call once to load initial images + start loop
   loadImages().then(() => loop());
   //re-check for new images every 10 seconds
-
+setInterval(loadImages, 10000);
 
 
 

@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000;
 
 let cachedImages = [];
 let lastFetchTime = 0;
-const CACHE_DURATION = 60 * 1000;
+const CACHE_DURATION = 5 * 1000;
 
 //telling cloudinary hi this is me pls let me upload
 cloudinary.config({

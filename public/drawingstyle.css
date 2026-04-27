@@ -7,6 +7,13 @@ body {
     touch-action: none;
 }
 
+.pupsplash{
+    width: 17%;
+    position:fixed;
+    bottom:0px;
+    left: 0px;
+}
+
 h1 {
     background: #7F7FD5;
     background-clip: text;
@@ -29,7 +36,7 @@ h1 {
     width: 100px;          
     height: 400px;
     position: absolute;
-    left: 450px; 
+    left: 410px; 
     top: 600px;
     rotate: 20deg;
 }
@@ -83,8 +90,8 @@ h1 {
     width: 20%;
     position: absolute;
     margin-left: 2%; 
-    right: 5%; 
-    top: 85%;
+    right: 20%; 
+    top: 82%;
 }
 
 #undo{
@@ -95,7 +102,7 @@ h1 {
     height: 10%;
     width: 10%;
     right: 5%; 
-    top: 70%;
+    top: 50%;
 }
 
 #redo{
@@ -106,7 +113,7 @@ h1 {
     height: 10%;
     width: 10%;
     right: 5%; 
-    top: 75%;
+    top: 65%;
 }
 
 #save{
@@ -117,7 +124,7 @@ h1 {
     width: 20%;
     position: absolute;
     right: 0px; 
-    top: 90%;
+    top: 80%;
 }
 
 .label-container{
@@ -159,10 +166,10 @@ label{
     background-repeat: no-repeat;
     background-size: contain;
     height: 12%;
-    width: 14%;
+    width: 8%;
     position: absolute;
-    right: 50%; 
-    top: 10%;
+    right: 5%; 
+    top: 5%;
     transform: translate(50px, -30px);
 }
 
@@ -190,8 +197,8 @@ label{
 .background3 {
     background-image: url(images/Title_MAIN.svg);
     background-repeat: no-repeat;
-    background-position: 50% 0%;
-    background-size: 50%;
+    background-position: 0% 0%;
+    background-size: 30%;
 }
 @media screen and (max-width: 650px) {
 
@@ -199,6 +206,15 @@ label{
 }
 @media screen and (max-width: 550px){
 
+#guideButton{
+    
+    right: 15%; 
+}
+#clear{
+    
+    right: 8%; 
+    top: 92%;
+}
 #eraser{
     background-image: url(images/toolButtons/eraser.svg);
     background-repeat: no-repeat;

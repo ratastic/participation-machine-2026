@@ -157,7 +157,7 @@ function handleCollisions() {
           a.y += overlapY > 0 ? push: -push;
           b.y -= overlapY > 0 ? push: -push;
           
-        //createBox();
+        //selects random image from emotion array to pop up on collision;
         const index = Math.floor(Math.random() * myEmotions.length);
   const selected_image = myEmotions[index];
 
@@ -169,12 +169,13 @@ function handleCollisions() {
   
   // box.className = 'box';
   // box.style.position = 'absolute';
-
-  //tracking where 
+const collisionX = (a.x + b.x) / 2;
+const collisionY = (a.y + b.y) / 2;
+  //tracking where to spawn image
   img.style.zIndex = '-1';
   img.style.position = 'absolute'
-  img.style.left = a.y + 'px';
-  img.style.top = a.x + 'px';
+  img.style.left = collisionX + 'px';
+  img.style.top = const collisionY + 'px';
   img.style.width = '50px';//
 
   document.body.appendChild(img);
@@ -184,7 +185,7 @@ function handleCollisions() {
     }
   }
 }
-myEmotions = ['angry.png','derp.png','sad.jpg','confused.jpg','fart.jpg'];
+
 
 // window.onclick = e => {
 //   h = document.createElement('div')

@@ -79,12 +79,12 @@ h1 {
 #clear{
     background-image: url(images/toolButtons/ClearButton.svg);
     background-repeat: no-repeat;
-    height: 85px;
-    width: 150px;
+    height: 20%;
+    width: 20%;
     position: absolute;
     margin-left: 2%; 
-    left: 2%; 
-    top: 10%;
+    right: 5%; 
+    top: 85%;
 }
 
 #undo{
@@ -94,8 +94,8 @@ h1 {
     position: absolute;
     height: 10%;
     width: 10%;
-    left: 20%; 
-    top: 10%;
+    right: 5%; 
+    top: 70%;
 }
 
 #redo{
@@ -105,8 +105,8 @@ h1 {
     position: absolute;
     height: 10%;
     width: 10%;
-    left: 30%; 
-    top: 10%;
+    right: 5%; 
+    top: 75%;
 }
 
 #save{
@@ -116,8 +116,8 @@ h1 {
     height: 20%;
     width: 20%;
     position: absolute;
-    right: 5%; 
-    bottom: 20%;
+    right: 0px; 
+    top: 90%;
 }
 
 .label-container{
@@ -192,4 +192,53 @@ label{
     background-repeat: no-repeat;
     background-position: 50% 0%;
     background-size: 50%;
+}
+@media screen and (max-width: 650px) {
+
+
+}
+@media screen and (max-width: 550px){
+
+#eraser{
+    background-image: url(images/toolButtons/eraser.svg);
+    background-repeat: no-repeat;
+    width: 50px;          
+    height: 150px;
+    position: absolute;
+    left: 105px; 
+    top: 650px;
+    rotate: 0deg;
+}
+
+#brushSmall{
+    background-image: url(images/toolButtons/pencil.svg);
+    background-repeat: no-repeat;
+    height: 260px;
+    width: 50px;
+    position: absolute;
+    left: 150px; 
+    top: 600px;
+    rotate: 10deg;
+}
+
+#brushMed{
+    background-image: url(images/toolButtons/sharpie.svg);
+    background-repeat: no-repeat;
+    height: 250px;
+    width: 50px;
+    position: absolute;
+    left: 56px; 
+    top: 600px;
+    rotate: 0deg;
+}
+
+#brushbig{
+    background-image: url(images/toolButtons/phat-marker.svg);
+    background-repeat: no-repeat;
+    height: 250px;
+    width: 50px;
+    position: absolute;
+    left: 9px; 
+    top: 620px;
+}
 }

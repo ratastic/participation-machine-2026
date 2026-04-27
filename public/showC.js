@@ -157,25 +157,25 @@ function handleCollisions() {
           a.y += overlapY > 0 ? push: -push;
           b.y -= overlapY > 0 ? push: -push;
           
-        //selects random image from emotion array to pop up on collision;
+        //-----------selects random image from emotion array to pop up on collision;
         const index = Math.floor(Math.random() * myEmotions.length);
   const selected_image = myEmotions[index];
 
-   // create image element
+   // ----------create image element
   const img = document.createElement('img');
   img.src = `images/${selected_image}`;
   
-  // var box = document.createElement('div');
-  
-  // box.className = 'box';
-  // box.style.position = 'absolute';
-const collisionX = (a.x + b.x) / 2;
-const collisionY = (a.y + b.y) / 2;
-  //tracking where to spawn image
+ 
+
+
+  const collisionX = (a.x + b.x) / 2;
+  const collisionY = (a.y + b.y) / 2;
+
+  //----------------tracking where to spawn image
   img.style.zIndex = '-1';
   img.style.position = 'absolute'
   img.style.left = collisionX + 'px';
-  img.style.top = const collisionY + 'px';
+  img.style.top = collisionY + 'px';
   img.style.width = '50px';//
 
   document.body.appendChild(img);

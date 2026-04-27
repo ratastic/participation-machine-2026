@@ -5,7 +5,7 @@ console.log("reversed array:", reversed); // for testing purposes, shows the rev
 const showcase = document.getElementById("showcase");
 let cachedImages = null; 
 
-myEmotions = ['angry.png','derp.png','sad.jpg','confused.jpg','fart.jpg'];
+myEmotions = ['splat1.png','splat2.png','splat3.png','splat4.png','splat5.png','splat6.png','splat7.png'];
 
 async function loadImages() { // this function gets images from the backend and displays them
     try {

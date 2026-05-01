@@ -27,12 +27,26 @@ body {
 .showcase-image {
   max-width: 100%; 
   transition: transform 0.2s ease;
-
+  
   animation: squish-loop 2s infinite alternate ease-in-out;
 }
 
+#image_shower{
+  filter: hue-rotate(90deg);
+   /* opacity: 1;
+   transition: opacity 0.5s ease; */
+   animation: myAnim 2s linear 2s 1 normal forwards;
+}
 
+@keyframes myAnim {
+	0% {
+		opacity: 1;
+	}
 
+	100% {
+		opacity: 0;
+	}
+}
 
 @keyframes squish-loop {
   0% {

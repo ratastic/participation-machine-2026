@@ -10,10 +10,10 @@ body {
 #showcase {
   position: relative ;
 
-    background-image: url(/images/computer-bottomLeft-border-01.svg), url(/images/computer-topRight-border-01.svg);
+    /* background-image: url(/images/computer-bottomLeft-border-01.svg), url(/images/computer-topRight-border-01.svg);
     background-position: bottom, top;
     background-repeat: no-repeat, no-repeat;
-    background-size: cover;
+    background-size: cover; */
 
 
   width: 100%;
@@ -31,10 +31,11 @@ body {
   animation: squish-loop 2s infinite alternate ease-in-out;
 }
 
-#image_shower{
-  filter: hue-rotate(90deg);
-   /* opacity: 1;
-   transition: opacity 0.5s ease; */
+.image-shower{
+    
+  /* filter: hue-rotate(90deg); */
+   opacity: 1;
+   transition: opacity 0.5s ease; 
    animation: myAnim 2s linear 2s 1 normal forwards;
 }
 

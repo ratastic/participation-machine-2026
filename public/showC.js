@@ -38,7 +38,7 @@ const response = await fetch("/images?t=" + Date.now());
 
         img.classList.add("showcase-image");
             // for css to b able to reference
-            
+        
             // elvas silly test interactions
         img.addEventListener("mouseenter", () => { 
             img.style.transform = "scale(1.2)"; });
@@ -159,27 +159,28 @@ function handleCollisions() {
           
         //-----------selects random image from emotion array to pop up on collision;
         const index = Math.floor(Math.random() * myEmotions.length);
-  const selected_image = myEmotions[index];
+        const selected_image = myEmotions[index];
 
-   // ----------create image element
-  const img = document.createElement('img');
-  img.src = `images/${selected_image}`;
-  
- 
+        // ----------create image element
+        const img = document.createElement('img');
+        img.src = `images/${selected_image}`;
+        
 
-
-  const collisionX = (a.x + b.x) / 2;
-  const collisionY = (a.y + b.y) / 2;
+        const collisionX = (a.x + b.x) / 2;
+        const collisionY = (a.y + b.y) / 2;
 
   //----------------tracking where to spawn image
-  img.style.zIndex = '-1';
-  img.style.position = 'absolute'
-  img.style.left = collisionX + 'px';
-  img.style.top = collisionY + 'px';
-  img.style.width = '50px';//
 
-  document.body.appendChild(img);
-  console.log('click')
+        img.classList.add("image-shower");
+
+        img.style.zIndex = '-1';
+        img.style.position = 'absolute'
+        img.style.left = collisionX + 'px';
+        img.style.top = collisionY + 'px';
+        img.style.width = '100px';//
+        
+        document.body.appendChild(img);
+        console.log('click')
 
       }
     }

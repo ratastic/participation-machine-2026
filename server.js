@@ -100,7 +100,7 @@ app.get("/", (req, res) => {
 
 app.get("/gallery", async (req, res) => {
   try {
-    const images = await getImagesFromCloudinary(false);
+    const images = await getImagesFromCloudinary(true);
     res.render("index", { images });
   } catch (err) {
     console.log("CLOUDINARY LIST ERROR:", err);
@@ -111,11 +111,10 @@ app.get("/gallery", async (req, res) => {
 //BackEND getting imag from cloud 
 app.get("/images", async (req, res) => {
   try {
-    const images = await getImagesFromCloudinary(false);
+    const images = await getImagesFromCloudinary(true);
     res.json(images);
   } catch (err) {
     console.log("IMAGE FETCH ERROR MESSAGE:", err.message);
-    console.log("IMAGE FETCH ERROR FULL:", err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -151,12 +150,28 @@ app.post("/upload", (req, res) => {
 
         console.log("uploadd:", result.secure_url);
 
-        // add new upload to cache
-        cachedImages.unshift({
-          url: result.secure_url,
-          public_id: result.public_id
-        });
-      }
+      cachedImages.unshift({
+        url: result.secure_url,
+        public_id: result.public_id
+      });
+
+      // image dies after 30 seconds, permanently
+      setTimeout(async () => {
+        try {
+        const deleteResult = await cloudinary.uploader.destroy(result.public_id, {
+          resource_type: "image",
+          invalidate: true
+        });     
+             console.log("AUTO DELETE RESULT:", result.public_id, deleteResult);
+
+          cachedImages = cachedImages.filter(
+            (img) => img.public_id !== result.public_id
+          );
+        } catch (err) {
+          console.log("AUTO DELETE ERROR:", err);
+        }
+      }, 30000);
+            }
 
       lastFetchTime = Date.now();
       res.status(200).send("upload successful");
@@ -180,20 +195,105 @@ app.put("/delete", async (req, res) => {
 
   try {
     for (const publicId of deleteImages) {
-      const result = await cloudinary.uploader.destroy(publicId);
+      const result = await cloudinary.uploader.destroy(publicId, {
+        resource_type: "image",
+        invalidate: true
+      });
+
       console.log("DELETE RESULT:", publicId, result);
 
-      // remove from cache too
-      cachedImages = cachedImages.filter((img) => img.public_id !== publicId);
+      if (result.result === "ok") {
+        cachedImages = cachedImages.filter(
+          (img) => img.public_id !== publicId
+        );
+      } else {
+        console.log("DID NOT DELETE:", publicId, result.result);
+      }
     }
 
-    lastFetchTime = Date.now();
+    lastFetchTime = 0;
     res.status(200).send("success delete");
   } catch (err) {
     console.log("DELETE ERROR:", err);
     res.status(500).send("delete failed");
   }
 });
+
+
+app.put("/delete-all", async (req, res) => {
+  const { deleteSecret } = req.body;
+
+  if (deleteSecret !== process.env.DELETE_SECRET) {
+    return res.status(403).send("nope wrong delete code");
+  }
+
+  try {
+    let nextCursor = null;
+    let deletedCount = 0;
+
+    do {
+      const result = await cloudinary.api.resources({
+        type: "upload",
+        resource_type: "image",
+        prefix: "participation-machine/",
+        max_results: 100,
+        next_cursor: nextCursor
+      });
+
+      const publicIds = result.resources.map((img) => img.public_id);
+
+      if (publicIds.length > 0) {
+        const deleteResult = await cloudinary.api.delete_resources(publicIds, {
+          resource_type: "image",
+          invalidate: true
+        });
+
+        console.log("DELETE ALL RESULT:", deleteResult);
+        deletedCount += publicIds.length;
+      }
+
+      nextCursor = result.next_cursor;
+    } while (nextCursor);
+
+    cachedImages = [];
+    lastFetchTime = 0;
+
+    res.status(200).send(`deleted ${deletedCount} images`);
+  } catch (err) {
+    console.log("DELETE ALL ERROR:", err);
+    res.status(500).send("delete all failed");
+  }
+});
+
+// every 5 minutes wipe all images from cloudinary
+setInterval(async () => {
+
+  console.log("STARTING 5 MINUTE WIPE");
+
+  try {
+
+    const result = await cloudinary.api.delete_resources_by_prefix(
+      "participation-machine/",
+      {
+        resource_type: "image",
+        invalidate: true
+      }
+    );
+
+    console.log("5 MINUTE DELETE RESULT:", result);
+
+    // clear backend cache
+    cachedImages = [];
+    lastFetchTime = 0;
+
+  } catch (err) {
+
+    console.log("5 MINUTE DELETE ERROR:", err);
+
+  }
+
+}, 5 * 60 * 1000);
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

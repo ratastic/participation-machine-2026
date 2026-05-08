@@ -13,6 +13,23 @@ const response = await fetch("/images?t=" + Date.now());
       const images = await response.json(); //converts 2 array
   
 
+          const serverIds = images.map((img) => img.public_id);
+           
+          imageElements = imageElements.filter((obj) => {
+     
+            const stillExists = serverIds.includes(obj.public_id);
+
+       if (!stillExists) {
+                console.log("removing dead image:", obj.public_id);
+
+        obj.el.remove();
+      }
+
+      return stillExists;
+    });
+
+
+
         /* showcase.innerHTML = ""; //no duplicates
         imageElements = []; //reses array has current images
         */ 
@@ -31,7 +48,8 @@ const response = await fetch("/images?t=" + Date.now());
 
       images.forEach((image) => {
         // skip if this image is already in array
-        const alreadyExists = imageElements.some((obj) => obj.el.src === image.url);
+        const alreadyExists = imageElements.some((obj) => obj.public_id === image.public_id
+      );
         if (alreadyExists) return;
   
         const img = document.createElement("img"); //gives each img a  <img> tag
@@ -59,7 +77,9 @@ const response = await fetch("/images?t=" + Date.now());
         //.appendchild adds the image to the page 
   
         imageElements.push({//add new images to array
+      
           el: img,
+            public_id: image.public_id,
           x: Math.random() * showcase.clientWidth, //random start position
           y: Math.random() * showcase.clientHeight,
 
@@ -67,9 +87,7 @@ const response = await fetch("/images?t=" + Date.now());
           dy: (Math.random() - 0.5) * 3,
           width: 0,
           height: 0
-        }); //saves image so we can reference it later + allows internactions, .push = adds to array
-        
-
+        }); //imageElements.pushsaves image so we can reference it later + allows internactions, .push = adds to array
       });
   
     } catch (error) {
@@ -119,6 +137,50 @@ function update() {
 
   console.log("animate"); // for testing purposes, shows that the function is running
 }
+
+// const intervalId = setInterval(() => {
+//   if (imageElements.length > 0){
+//     const removedItem = imageElements.shift(); // removes the first image from the array (the oldest one)
+//     console.log("removed image:", removedItem, "remaining images:", imageElements);
+//     removedItem.el.remove();
+//   } else {
+//     console.log("no images to remove");
+//     clearInterval(intervalId); // stop the interval if there are no images left
+//   }
+// }, 5000);
+
+setInterval(async () => {
+  if (imageElements.length === 0) {
+    console.log("no images to remove");
+    return;
+  }
+
+  const removedItem = imageElements.shift();
+  removedItem.el.remove();
+
+  console.log("lifespan deleting:", removedItem.public_id);
+
+  try {
+    const response = await fetch("/delete", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        deleteImages: [removedItem.public_id],
+        deleteSecret: "67"
+      })
+    });
+
+    const data = await response.text();
+    console.log("backend delete response:", data);
+
+    loadImages();
+
+  } catch (error) {
+    console.log("delete failed:", error);
+  }
+}, 10000);
 
 // -------------------------------collision function---------------
 function handleCollisions() {
@@ -188,6 +250,8 @@ function handleCollisions() {
 }
 
 
+
+
 // window.onclick = e => {
 //   h = document.createElement('div')
 //   h.getContext = 'H'
@@ -223,16 +287,7 @@ function loop() {
 //   }, 5000); // every 5 seconds, removes the oldest image on the screen to prevent overcrowding. Adjust as needed.
 // }
 
-const intervalId = setInterval(() => {
-  if (imageElements.length > 0){
-    const removedItem = imageElements.pop(); // removes the first image from the array (the oldest one)
-    console.log("removed image:", removedItem, "remaining images:", imageElements);
-    removedItem.el.remove();
-  } else {
-    console.log("no images to remove");
-    clearInterval(intervalId); // stop the interval if there are no images left
-  }
-}, 5000);
+
 
 /*let imageElements = []; // Arrray of ALL image elements
 const showcase = document.getElementById("showcase");

@@ -177,7 +177,7 @@ function handleCollisions() {
         img.style.position = 'absolute'
         img.style.left = collisionX + 'px';
         img.style.top = collisionY + 'px';
-        img.style.width = '100px';//
+        img.style.width = '50px';//
         
         document.body.appendChild(img);
         console.log('click')

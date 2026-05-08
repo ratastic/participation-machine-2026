@@ -3,9 +3,12 @@ body {
   font-family: sans-serif;
   background-color: rgba(250, 246, 231, 0.844);
   overflow: hidden;
-
+/* 
+     background-image: url(/images/participation-machine-border-04.PNG);
+background-size: auto 90px; */
 
 }
+
 
 #showcase {
   position: relative ;
@@ -15,9 +18,8 @@ body {
     background-repeat: no-repeat, no-repeat;
     background-size: cover; */
 
-
-  width: 100%;
-  height:100vh;
+  /* width: 100%;
+  height:100vh; */
 
 
 
@@ -38,6 +40,29 @@ body {
    transition: opacity 0.5s ease; 
    animation: myAnim 2s linear 2s 1 normal forwards;
 }
+
+/*
+Source - https://stackoverflow.com/a/27634201
+Posted by Ruddy, modified by community. See post 'Timeline' for change history
+Retrieved 2026-05-08, License - CC BY-SA 4.0
+*/
+
+/*
+Source - https://stackoverflow.com/a/27839590
+Posted by Vitorino fernandes, modified by community. See post 'Timeline' for change history
+Retrieved 2026-05-08, License - CC BY-SA 3.0
+*/
+
+.vignette {
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(
+      ellipse 65% 90% at center,
+    transparent 50%, 
+    rgba(0, 0, 0, 1) 70%
+  );
+}
+
 
 @keyframes myAnim {
 	0% {

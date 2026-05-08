@@ -212,8 +212,8 @@ label{
 }
 #clear{
     
-    right: 8%; 
-    top: 92%;
+    right: 20%; 
+    top: 83%;
 }
 #eraser{
     background-image: url(images/toolButtons/eraser.svg);
@@ -222,7 +222,7 @@ label{
     height: 150px;
     position: absolute;
     left: 105px; 
-    top: 650px;
+    top: 600px;
     rotate: 0deg;
 }
 
@@ -233,7 +233,7 @@ label{
     width: 50px;
     position: absolute;
     left: 150px; 
-    top: 600px;
+    top: 550px;
     rotate: 10deg;
 }
 
@@ -244,7 +244,7 @@ label{
     width: 50px;
     position: absolute;
     left: 56px; 
-    top: 600px;
+    top: 550px;
     rotate: 0deg;
 }
 
@@ -255,6 +255,6 @@ label{
     width: 50px;
     position: absolute;
     left: 9px; 
-    top: 620px;
+    top: 600px;
 }
 }

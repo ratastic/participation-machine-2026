@@ -292,7 +292,7 @@ setInterval(async () => {
 
   }
 
-}, 5 * 60 * 1000);
+}, 10 * 60 * 1000);
 
 
 app.listen(port, () => {

@@ -180,7 +180,7 @@ setInterval(async () => {
   } catch (error) {
     console.log("delete failed:", error);
   }
-}, 30000);
+}, 30 * 60 * 1000);
 
 // -------------------------------collision function---------------
 function handleCollisions() {

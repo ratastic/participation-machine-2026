@@ -70,6 +70,7 @@ Retrieved 2026-05-08, License - CC BY-SA 3.0
     rgba(0, 0, 0, 1) 70%
   );
 }
+
 @keyframes myAnim {
 	0% {
 		opacity: 1;

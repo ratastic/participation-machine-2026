@@ -149,38 +149,39 @@ function update() {
 //   }
 // }, 5000);
 
-setInterval(async () => {
-  if (imageElements.length === 0) {
-    console.log("no images to remove");
-    return;
-  }
+//bring back later if want to do lifespan instead of 5 min wipe
+// setInterval(async () => {
+//   if (imageElements.length === 0) {
+//     console.log("no images to remove");
+//     return;
+//   }
 
-  const removedItem = imageElements.shift();
-  removedItem.el.remove();
+//   const removedItem = imageElements.shift();
+//   removedItem.el.remove();
 
-  console.log("lifespan deleting:", removedItem.public_id);
+//   console.log("lifespan deleting:", removedItem.public_id);
 
-  try {
-    const response = await fetch("/delete", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        deleteImages: [removedItem.public_id],
-        deleteSecret: "67"
-      })
-    });
+//   try {
+//     const response = await fetch("/delete", {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({
+//         deleteImages: [removedItem.public_id],
+//         deleteSecret: "67"
+//       })
+//     });
 
-    const data = await response.text();
-    console.log("backend delete response:", data);
+//     const data = await response.text();
+//     console.log("backend delete response:", data);
 
-    loadImages();
+//     loadImages();
 
-  } catch (error) {
-    console.log("delete failed:", error);
-  }
-}, 30 * 60 * 1000);
+//   } catch (error) {
+//     console.log("delete failed:", error);
+//   }
+// }, 30 * 60 * 1000);
 
 // -------------------------------collision function---------------
 function handleCollisions() {

@@ -3,6 +3,14 @@ let imageElements = [];
 const reversed = imageElements.reverse(); // creates a reversed copy of the array
 console.log("reversed array:", reversed); // for testing purposes, shows the reversed array in the console
 const showcase = document.getElementById("showcase");
+
+const collisionSounds = [
+  "fartEcho.mp3",
+  "shortYell.mp3",
+  "click.mp3",
+  "squeak.mp3"
+];
+
 let cachedImages = null; 
 
 myEmotions = ['splat1.png','splat2.png','splat3.png','splat4.png','splat5.png','splat6.png','splat7.png'];
@@ -244,7 +252,14 @@ function handleCollisions() {
         
         document.body.appendChild(img);
         console.log('click')
+      
+        const randomSound =
+        collisionSounds[Math.floor(Math.random() * collisionSounds.length)];
 
+        const sound = new Audio(`sounds/${randomSound}`);
+
+        sound.volume = 0.5;
+        sound.play();
       }
     }
   }

@@ -109,7 +109,7 @@ const response = await fetch("/images?t=" + Date.now());
   // Call once to load initial images + start loop
   loadImages().then(() => loop());
   //re-check for new images every 10 seconds
-setInterval(loadImages, 1000);
+setInterval(loadImages, 15000);
 
 
 

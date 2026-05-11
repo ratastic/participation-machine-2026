@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000;
 
 let cachedImages = [];
 let lastFetchTime = 0;
-const CACHE_DURATION = 5 * 1000;
+const CACHE_DURATION = 30 * 1000;
 
 //telling cloudinary hi this is me pls let me upload
 cloudinary.config({
@@ -100,7 +100,7 @@ app.get("/", (req, res) => {
 
 app.get("/gallery", async (req, res) => {
   try {
-    const images = await getImagesFromCloudinary(true);
+const images = await getImagesFromCloudinary();
     res.render("index", { images });
   } catch (err) {
     console.log("CLOUDINARY LIST ERROR:", err);
@@ -111,7 +111,7 @@ app.get("/gallery", async (req, res) => {
 //BackEND getting imag from cloud 
 app.get("/images", async (req, res) => {
   try {
-    const images = await getImagesFromCloudinary(true);
+    const images = await getImagesFromCloudinary();
     res.json(images);
   } catch (err) {
     console.log("IMAGE FETCH ERROR MESSAGE:", err.message);

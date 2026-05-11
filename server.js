@@ -156,21 +156,21 @@ app.post("/upload", (req, res) => {
       });
 
       // image dies after 30 seconds, permanently
-      // setTimeout(async () => {
-      //   try {
-      //   const deleteResult = await cloudinary.uploader.destroy(result.public_id, {
-      //     resource_type: "image",
-      //     invalidate: true
-      //   });     
-      //        console.log("AUTO DELETE RESULT:", result.public_id, deleteResult);
+      setTimeout(async () => {
+        try {
+        const deleteResult = await cloudinary.uploader.destroy(result.public_id, {
+          resource_type: "image",
+          invalidate: true
+        });     
+             console.log("AUTO DELETE RESULT:", result.public_id, deleteResult);
 
-      //     cachedImages = cachedImages.filter(
-      //       (img) => img.public_id !== result.public_id
-      //     );
-      //   } catch (err) {
-      //     console.log("AUTO DELETE ERROR:", err);
-      //   }
-      // }, 30000);
+          cachedImages = cachedImages.filter(
+            (img) => img.public_id !== result.public_id
+          );
+        } catch (err) {
+          console.log("AUTO DELETE ERROR:", err);
+        }
+      }, 700000);
             }
 
       lastFetchTime = Date.now();
@@ -266,33 +266,33 @@ app.put("/delete-all", async (req, res) => {
 });
 //birn gback
 // // every 5 minutes wipe all images from cloudinary
-// setInterval(async () => {
+setInterval(async () => {
 
-//   console.log("STARTING 5 MINUTE WIPE");
+  console.log("STARTING 5 MINUTE WIPE");
 
-//   try {
+  try {
 
-//     const result = await cloudinary.api.delete_resources_by_prefix(
-//       "participation-machine/",
-//       {
-//         resource_type: "image",
-//         invalidate: true
-//       }
-//     );
+    const result = await cloudinary.api.delete_resources_by_prefix(
+      "participation-machine/",
+      {
+        resource_type: "image",
+        invalidate: true
+      }
+    );
 
-//     console.log("5 MINUTE DELETE RESULT:", result);
+    console.log("5 MINUTE DELETE RESULT:", result);
 
-//     // clear backend cache
-//     cachedImages = [];
-//     lastFetchTime = 0;
+    // clear backend cache
+    cachedImages = [];
+    lastFetchTime = 0;
 
-//   } catch (err) {
+  } catch (err) {
 
-//     console.log("5 MINUTE DELETE ERROR:", err);
+    console.log("5 MINUTE DELETE ERROR:", err);
 
-//   }
+  }
 
-// }, 20 * 60 * 1000);
+}, 50 * 60 * 1000);
 
 
 app.listen(port, () => {

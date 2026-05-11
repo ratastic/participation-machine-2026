@@ -183,7 +183,7 @@ eraserButton.addEventListener('click', () => {
 
 brushSmallButton.addEventListener('click', () => {
     tool = 'brushSmall';
-    lineWidth = 10;
+    lineWidth = 8;
     canvas.style.cursor = 'default';
 });
 
@@ -195,7 +195,7 @@ brushMedButton.addEventListener('click', () => {
 
 brushBigButton.addEventListener('click', () => {
     tool = 'brushBig';
-    lineWidth = 30;
+    lineWidth = 34;
     canvas.style.cursor = 'default';
 });
 

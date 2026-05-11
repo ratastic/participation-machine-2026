@@ -7,8 +7,8 @@ const showcase = document.getElementById("showcase");
 const collisionSounds = [
   "fartEcho.mp3",
   "shortYell.mp3",
-  "click.mp3",
-  "squeak.mp3"
+  // "click.mp3",
+  // "squeak.mp3"
 ];
 
 let cachedImages = null; 
@@ -43,16 +43,16 @@ const response = await fetch("/images?t=" + Date.now());
         */ 
        //instead using alreadyExists
 
-      //  const serverUrls = images.map((img) => img.url);
-      //   //remove any images that are no longer on the server
-      //    imageElements = imageElements.filter((obj) => {
-      //     const stillExists = serverUrls.includes(obj.el.src);
-      //     if (!stillExists) {
-      //       obj.el.remove(); //this deletes the image from te screen
-      //     }
+       const serverUrls = images.map((img) => img.url);
+        //remove any images that are no longer on the server
+         imageElements = imageElements.filter((obj) => {
+          const stillExists = serverUrls.includes(obj.el.src);
+          if (!stillExists) {
+            obj.el.remove(); //this deletes the image from te screen
+          }
 
-      //     return stillExists;
-      //   });
+          return stillExists;
+        });
 
       images.forEach((image) => {
         // skip if this image is already in array
@@ -146,50 +146,50 @@ function update() {
   console.log("animate"); // for testing purposes, shows that the function is running
 }
 
-// const intervalId = setInterval(() => {
-//   if (imageElements.length > 0){
-//     const removedItem = imageElements.shift(); // removes the first image from the array (the oldest one)
-//     console.log("removed image:", removedItem, "remaining images:", imageElements);
-//     removedItem.el.remove();
-//   } else {
-//     console.log("no images to remove");
-//     clearInterval(intervalId); // stop the interval if there are no images left
-//   }
-// }, 5000);
+const intervalId = setInterval(() => {
+  if (imageElements.length > 0){
+    const removedItem = imageElements.shift(); // removes the first image from the array (the oldest one)
+    console.log("removed image:", removedItem, "remaining images:", imageElements);
+    removedItem.el.remove();
+  } else {
+    console.log("no images to remove");
+    clearInterval(intervalId); // stop the interval if there are no images left
+  }
+}, 600000);
 
-//bring back later if want to do lifespan instead of 5 min wipe
-// setInterval(async () => {
-//   if (imageElements.length === 0) {
-//     console.log("no images to remove");
-//     return;
-//   }
+// bring back later if want to do lifespan instead of 5 min wipe
+setInterval(async () => {
+  if (imageElements.length === 0) {
+    console.log("no images to remove");
+    return;
+  }
 
-//   const removedItem = imageElements.shift();
-//   removedItem.el.remove();
+  const removedItem = imageElements.shift();
+  removedItem.el.remove();
 
-//   console.log("lifespan deleting:", removedItem.public_id);
+  console.log("lifespan deleting:", removedItem.public_id);
 
-//   try {
-//     const response = await fetch("/delete", {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify({
-//         deleteImages: [removedItem.public_id],
-//         deleteSecret: "67"
-//       })
-//     });
+  try {
+    const response = await fetch("/delete", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        deleteImages: [removedItem.public_id],
+        deleteSecret: "67"
+      })
+    });
 
-//     const data = await response.text();
-//     console.log("backend delete response:", data);
+    const data = await response.text();
+    console.log("backend delete response:", data);
 
-//     loadImages();
+    loadImages();
 
-//   } catch (error) {
-//     console.log("delete failed:", error);
-//   }
-// }, 30 * 60 * 1000);
+  } catch (error) {
+    console.log("delete failed:", error);
+  }
+}, 40 * 60 * 1000);
 
 // -------------------------------collision function---------------
 function handleCollisions() {
@@ -258,7 +258,7 @@ function handleCollisions() {
 
         const sound = new Audio(`sounds/${randomSound}`);
 
-        sound.volume = 0.5;
+        sound.volume = 0.3;
         sound.play();
       }
     }
@@ -294,14 +294,14 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-// function kill(){
-//   setInterval(() => {
-//   if(imageElements.length === 0) return; // if no images, skip
-//   console.log("PENISSSSS");
-//   const first = imageElements.shift(); // removes the first image from the array (the oldest one)
-//   first.img.remove(); // removes the oldest image from the screen
-//   }, 5000); // every 5 seconds, removes the oldest image on the screen to prevent overcrowding. Adjust as needed.
-// }
+function kill(){
+  setInterval(() => {
+  if(imageElements.length === 0) return; // if no images, skip
+  console.log("PENISSSSS");
+  const first = imageElements.shift(); // removes the first image from the array (the oldest one)
+  first.img.remove(); // removes the oldest image from the screen
+  }, 600000); //remove every 10 minutes, adjust as needed
+}
 
 
 

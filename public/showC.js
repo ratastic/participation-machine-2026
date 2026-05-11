@@ -109,7 +109,7 @@ const response = await fetch("/images?t=" + Date.now());
   // Call once to load initial images + start loop
   loadImages().then(() => loop());
   //re-check for new images every 10 seconds
-setInterval(loadImages, 10000);
+setInterval(loadImages, 1000);
 
 
 
@@ -146,16 +146,16 @@ function update() {
   console.log("animate"); // for testing purposes, shows that the function is running
 }
 
-const intervalId = setInterval(() => {
-  if (imageElements.length > 0){
-    const removedItem = imageElements.shift(); // removes the first image from the array (the oldest one)
-    console.log("removed image:", removedItem, "remaining images:", imageElements);
-    removedItem.el.remove();
-  } else {
-    console.log("no images to remove");
-    clearInterval(intervalId); // stop the interval if there are no images left
-  }
-}, 5000);
+// const intervalId = setInterval(() => {
+//   if (imageElements.length > 0){
+//     const removedItem = imageElements.shift(); // removes the first image from the array (the oldest one)
+//     console.log("removed image:", removedItem, "remaining images:", imageElements);
+//     removedItem.el.remove();
+//   } else {
+//     console.log("no images to remove");
+//     clearInterval(intervalId); // stop the interval if there are no images left
+//   }
+// }, 800000);
 
 // bring back later if want to do lifespan instead of 5 min wipe
 setInterval(async () => {
@@ -189,7 +189,7 @@ setInterval(async () => {
   } catch (error) {
     console.log("delete failed:", error);
   }
-}, 20 * 60 * 1000);
+}, 60 * 60 * 1000);
 
 // -------------------------------collision function---------------
 function handleCollisions() {

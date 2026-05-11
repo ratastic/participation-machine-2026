@@ -155,7 +155,7 @@ const intervalId = setInterval(() => {
     console.log("no images to remove");
     clearInterval(intervalId); // stop the interval if there are no images left
   }
-}, 600000);
+}, 5000);
 
 // bring back later if want to do lifespan instead of 5 min wipe
 setInterval(async () => {
@@ -189,7 +189,7 @@ setInterval(async () => {
   } catch (error) {
     console.log("delete failed:", error);
   }
-}, 40 * 60 * 1000);
+}, 20 * 60 * 1000);
 
 // -------------------------------collision function---------------
 function handleCollisions() {
@@ -294,14 +294,14 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-function kill(){
-  setInterval(() => {
-  if(imageElements.length === 0) return; // if no images, skip
-  console.log("PENISSSSS");
-  const first = imageElements.shift(); // removes the first image from the array (the oldest one)
-  first.img.remove(); // removes the oldest image from the screen
-  }, 600000); //remove every 10 minutes, adjust as needed
-}
+// function kill(){
+//   setInterval(() => {
+//   if(imageElements.length === 0) return; // if no images, skip
+//   console.log("PENISSSSS");
+//   const first = imageElements.shift(); // removes the first image from the array (the oldest one)
+//   first.img.remove(); // removes the oldest image from the screen
+//   }, 600000); //remove every 10 minutes, adjust as needed
+// }
 
 
 

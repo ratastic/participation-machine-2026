@@ -170,7 +170,7 @@ app.post("/upload", (req, res) => {
         } catch (err) {
           console.log("AUTO DELETE ERROR:", err);
         }
-      }, 700000);
+      }, 6000);
             }
 
       lastFetchTime = Date.now();
@@ -292,7 +292,7 @@ setInterval(async () => {
 
   }
 
-}, 50 * 60 * 1000);
+}, 30 * 60 * 1000);
 
 
 app.listen(port, () => {
